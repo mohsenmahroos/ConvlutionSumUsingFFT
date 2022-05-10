@@ -11,31 +11,32 @@ int main() {
     using i_limits = numeric_limits<size_t>;
     using ivector = vector<size_t>;
     using ull = unsigned long long;
-    const FFT_engine<18,ivector> FFT;
-    const size_t M = 4, N = FFT.N;
-    const size_t u_min = i_limits::min(), u_max = i_limits::max();
-    ivector array_size(M), f_min(M,u_max), f_max(M,u_min), g(N), h(N);
-    ull K;
-    vector<ivector> f(M,ivector(N));
+    const size_t M = 4;
+    ivector array_size(M);
     cin.tie(nullptr)->sync_with_stdio(false);
     for (size_t i = 0; i < M; ++i)
         cin >> array_size[i];
-    cin >> K;
+    ull K; cin >> K;
+    const FFT_engine<18,ivector> FFT;
+    const size_t N = FFT.N, u_min = i_limits::min(), u_max = i_limits::max();
+    ivector f_min(M,u_max), f_max(M,u_min);
+    vector<ivector> f(M,ivector(N));
     for (size_t i = 0; i < M; ++i)
-        for (size_t elem; array_size[i] > 0; ++f[i][elem])
-            cin >> elem, --array_size[i],
+        for (size_t elem; array_size[i] > 0; --array_size[i], ++f[i][elem])
+            cin >> elem, 
             f_min[i] = min(f_min[i],elem),
             f_max[i] = max(f_max[i],elem);
+    ivector g(N), h(N);
     FFT.convolution_sum(f[0],f[1],g);
     FFT.convolution_sum(f[2],f[3],h);
-    for (size_t y = 1; y < FFT.N; ++y)
+    for (size_t y = 1; y < N; ++y)
         h[y] += h[y-1];
     const auto y_index = [&](ull m, ull x) {
-        const ull y = FFT.N-1;
+        const ull y = N-1;
         return x == 0 ? y: min(y,m/x); };
     const auto p_count = [&](ull m) {
         ull n = 0;
-        for (size_t x = 0; x < FFT.N and n < K; ++x)
+        for (size_t x = 0; x < N and n < K; ++x)
             if (g[x] > 0)
                 n += 1ll*g[x]*h[y_index(m,x)];
         return n; };  

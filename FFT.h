@@ -37,7 +37,9 @@ public:
         if (t == INVERSE)
             for (auto &value: F)
                 value /= N; }
-     inline ivector convolution_sum(const ivector &f, const ivector &g) const {
+    inline void convolution_sum(const ivector &f, 
+                                const ivector &g, 
+                                      ivector &h) const {
         cvector F(N), G(N), H(N);
         for (size_t i = 0; i < N; ++i)
             F[i] = cscalar(f[i],0),
@@ -46,9 +48,8 @@ public:
         transform(G,FORWARD);
         for (size_t i = 0; i < N; ++i)
             H[i] = F[i]*G[i];
-        transform(H,INVERSE);
-        ivector h(N);
+        transform(H,INVERSE); 
+        h.resize(N);
         for (size_t i = 0; i < N; ++i)
-            h[i] = round(real(H[i]));
-        return h; } };
+            h[i] = round(real(H[i])); } };		
 #endif // __FFT__

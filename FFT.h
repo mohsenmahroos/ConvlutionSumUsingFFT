@@ -16,7 +16,7 @@ struct FFT_engine {
     const size_t N;
 private:
     ctensor WP;
-    inline size_t swap_pos(size_t j, size_t k) const {
+    inline static size_t swap_pos(size_t j, size_t k) const {
     	while ((j ^= k) < k)
         	k >>= 1;
     	return j; }

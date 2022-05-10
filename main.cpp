@@ -32,13 +32,12 @@ int main() {
             if (g[x] > 0)
                 n += 1ll*g[x]*h[y_index(m,x)];
         return n; };
-    const auto product_of_sums = [&](const ivector &x) {
+    const auto prod_of_sums = [&](const ivector &x) {
         return 1ull*(x[0]+x[1])*(x[2]+x[3]); };
-    for (ull l = product_of_sums(f_min), r = product_of_sums(f_max); l <= r; ) {
-        const ull m = (l+r)/2, n = p_count(m);
-        if (n < K)
+    for (ull m, l = prod_of_sums(f_min), r = prod_of_sums(f_max); l <= r; )
+        if (m = (l+r)/2, p_count(m) < K)
             l = m+1;
         else
-            r = m-1, ans = std::min(ans,m); }
+            r = m-1, ans = std::min(ans,m);
     std::cout << ans;
-	return 0; }
+    return 0; }

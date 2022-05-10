@@ -29,11 +29,11 @@ public:
                 for (size_t u = 0; u < 2; ++u, y = -y)
                     WP[u][s].emplace_back(x,y); } }
     inline void transform(cvector& F, type t) const {
-        for (size_t m = N-1, k = N/2, j = 0, i = 1; i < m; ++i)
+       for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
             if (j = swap_pos(j,k), i < j)
                 swap(F[i],F[j]);
-        for (size_t u = 0, k = 1; k < N; ++u, k <<= 1)
-            for (size_t i = 0; i < N; i += k << 1)
+        for (size_t u = 0, k = 1, w = 2; u < size; ++u, k = w, w <<= 1)
+            for (size_t i = 0; i < N; i += w)
 	    	for (size_t v = 0; v < k; ++v) {
                     const auto l = i+v, r = l+k;
 		    const auto a = F[l], b = F[r]*WP[t][u][v];

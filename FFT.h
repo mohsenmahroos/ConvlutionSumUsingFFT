@@ -29,7 +29,7 @@ public:
                 for (size_t u = 0; u < 2; ++u, y = -y)
                     WP[u][s].emplace_back(x,y); } }
     inline void transform(cvector& F, type t) const {
-       for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
+        for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
             if (j = swap_pos(j,k), i < j)
                 swap(F[i],F[j]);
         for (size_t u = 0, k = 1, w = 2; u < size; ++u, k = w, w <<= 1)

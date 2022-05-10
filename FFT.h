@@ -18,7 +18,7 @@ private:
     ctensor WP;
     inline static size_t swap_pos(size_t j, size_t k) {
     	while ((j ^= k) < k)
-        	k >>= 1;
+            k >>= 1;
     	return j; }
 public:
     inline FFT_engine() : N(1<<size), WP(2,cmatrix(size)) {

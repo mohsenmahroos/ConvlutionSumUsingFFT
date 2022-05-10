@@ -4,9 +4,7 @@
 #include <complex>
 #include <vector>
 
-using ivector = std::vector<size_t>;
-
-template<size_t size, class number_t = double>
+template<size_t size, class ivector, class number_t = float>
 struct FFT_engine {
     enum type {FORWARD,INVERSE};
     using cscalar = std::complex<number_t>;
@@ -25,16 +23,17 @@ private:
                         this->at(u).at(s).emplace_back(x,y); } } };
     const unity_roots WP;
 public:
-    inline void transform(cvector &F, const type t) const {
-        for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
-            if (j = swap_pos(j,k), i < j)
-                swap(F[i],F[j]);
+    inline void transform(cvector& F, type t) const {
+        for (size_t k, l = N>>1, m = N-1, j = 0, i = 1; i < m; ++i) {
+            for (k = l; j ^= k, j < k; k >>= 1);
+            if (i < j)
+                swap(F[i],F[j]); }
         for (size_t u = 0, k = 1, w = 2; u < size; ++u, k = w, w <<= 1)
             for (size_t i = 0; i < N; i += w)
-	    	for (size_t v = 0; v < k; ++v) {
+	            for (size_t v = 0; v < k; ++v) {
                     const auto l = i+v, r = l+k;
-		    const auto a = F[l], b = F[r]*WP[t][u][v];
-		    F[l] = a+b, F[r] = a-b; }
+			        const auto a = F[l], b = F[r]*WP[t][u][v];
+				    F[l] = a+b, F[r] = a-b; }
         if (t == INVERSE)
             for (auto &value: F)
                 value /= N; }

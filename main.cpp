@@ -15,7 +15,7 @@ const size_t M = 4;
 const FFT_engine<18,ivector> FFT;
 
 size_t array_size[M], f_min[M], f_max[M];
-ull K, ans = numeric_limits<ull>::max();
+ull K;
 vector<ivector> f(M,ivector(FFT.N));
 
 int main () {
@@ -40,13 +40,16 @@ int main () {
         for (size_t x = 0; x < FFT.N and n < K; ++x)
             if (g[x] > 0)
                 n += 1ll*g[x]*h[y_index(m,x)];
-        return n; };
-    const auto prod_of_sums = [&](size_t x[]) {
+        return n; };  
+    const auto binary_search = [&](ull l, ull r) {
+        ull ans = r;
+        while (l <= r) {
+            const ull m = (l+r)/2;
+            if (p_count(m) < K)
+                l = m+1;
+            else
+                r = m-1, ans = min(ans,m); }
+        return ans; };
+    const auto product_of_sums = [&](size_t x[]) {
         return 1ull*(x[0]+x[1])*(x[2]+x[3]); };
-    for (ull m, l = prod_of_sums(f_min), r = prod_of_sums(f_max); l <= r; )
-        if (m = (l+r)/2, p_count(m) < K)
-            l = m+1;
-        else
-            r = m-1, ans = min(ans,m);
-    cout << ans;
-    return 0; }
+    cout << binary_search(product_of_sums(f_min),product_of_sums(f_max)); }

@@ -28,7 +28,7 @@ public:
                 number_t theta = j*phi, x = cos(theta), y = sin(theta);
                 for (size_t u = 0; u < 2; ++u, y = -y)
                     WP[u][s].emplace_back(x,y); } }
-    inline void transform(cvector& F, const type t) const {
+    inline void transform(cvector &F, const type t) const {
         for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
             if (j = swap_pos(j,k), i < j)
                 swap(F[i],F[j]);
@@ -41,7 +41,7 @@ public:
         if (t == INVERSE)
             for (auto &value: F)
                 value /= N; }
-     inline ivector convolution_sum(const ivector& f, const ivector& g) const {
+     inline ivector convolution_sum(const ivector &f, const ivector &g) const {
         cvector F(N), G(N), H(N);
         for (size_t i = 0; i < N; ++i)
             F[i] = cscalar(f[i],0),

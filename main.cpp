@@ -1,22 +1,20 @@
+// Accepted solution of FOUR ARRAYS problem in May 2022 Long-time Competitive Programming Contest 1 at CodeChef.com
 #include "FFT.h"
 #include <iostream>
 #include <array>
 #include <numeric>
 using namespace std;
 
-// Accepted solution of FOUR ARRAYS problem in May 2022 Long-time Competitive Programming Contest 1 at CodeChef.com
-
 int main() {
     using ull = unsigned long long;
-    using imatrix = vector<ivector>;
-    FFT_engine<18> FFT;
+    const FFT_engine<18> FFT;
     const size_t M = 4, N = FFT.N;
     array<size_t,M> array_size;
     cin.tie(nullptr)->sync_with_stdio(false);
     for (size_t i = 0; i < M; ++i)
         cin >> array_size[i];
     ull K; cin >> K;
-    imatrix F(M,ivector(N));
+    vector<ivector> F(M,ivector(N));
     ivector f_min(M,numeric_limits<size_t>::max());
     ivector f_max(M,numeric_limits<size_t>::min());
     for (size_t i = 0; i < M; ++i)
@@ -37,7 +35,7 @@ int main() {
             if (G[x] > 0)
                 n += 1ll*G[x]*H[y_index(m,x)];
         return n; };
-    const auto product_of_sums = [&](const ivector& x) {
+    const auto product_of_sums = [&](const ivector &x) {
         return 1ull*(x[0]+x[1])*(x[2]+x[3]); };
     ull ans = numeric_limits<ull>::max();
     for (ull l = product_of_sums(f_min), r = product_of_sums(f_max); l <= r; ) {

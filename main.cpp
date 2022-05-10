@@ -1,4 +1,7 @@
-// Accepted solution of FOUR ARRAYS problem in May 2022 Long-time Competitive Programming Contest 1 at CodeChef.com
+// Accepted solution of FOUR ARRAYS problem 
+// May 2022 Long-time Competitive Programming Contest 1
+// at CodeChef.com
+
 #include "FFT.h"
 #include <iostream>
 #include <numeric>

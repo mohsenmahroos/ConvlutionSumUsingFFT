@@ -49,7 +49,6 @@ public:
         for (size_t i = 0; i < N; ++i)
             H[i] = F[i]*G[i];
         transform(H,INVERSE); 
-        h.resize(N);
         for (size_t i = 0; i < N; ++i)
             h[i] = round(real(H[i])); } };		
 #endif // __FFT__

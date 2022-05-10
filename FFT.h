@@ -36,8 +36,8 @@ public:
             for (size_t i = 0; i < N; i += k << 1)
 	            for (size_t v = 0; v < k; ++v) {
                     const auto l = i+v, r = l+k;
-			        const auto a = F[l], b = F[r]*WP[t][u][v];
-				    F[l] = a+b, F[r] = a-b; }
+		    const auto a = F[l], b = F[r]*WP[t][u][v];
+		    F[l] = a+b, F[r] = a-b; }
         if (t == INVERSE)
             for (auto &value: F)
                 value /= N; }

@@ -23,7 +23,7 @@ private:
                         this->at(u).at(s).emplace_back(x,y); } } };
     const unity_roots WP;
 public:
-    inline void transform(cvector& F, type t) const {
+    inline void transform(cvector &F, type t) const {
         for (size_t k, l = N>>1, m = N-1, j = 0, i = 1; i < m; ++i) {
             for (k = l; j ^= k, j < k; k >>= 1);
             if (i < j)

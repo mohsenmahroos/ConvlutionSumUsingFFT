@@ -13,21 +13,18 @@ struct FFT_engine {
     using cvector = std::vector<cscalar>;
     using cmatrix = std::vector<cvector>;
     using ctensor = std::vector<cmatrix>;
-    const size_t N;
+    const size_t N = 1<<size;
 private:
-    ctensor WP;
-    inline static size_t swap_pos(size_t j, size_t k) {
-    	while ((j ^= k) < k)
-            k >>= 1;
-    	return j; }
+    struct unity_roots: ctensor {
+        inline unity_roots() : ctensor(2,cmatrix(size)) {
+            number_t phi = 4.0*atan(1);
+            for (size_t s = 0, k = 1; s < size; ++s, k <<= 1, phi *= 0.5)
+                for (size_t j = 0; j < k; ++j) {
+                    number_t theta = j*phi, x = cos(theta), y = sin(theta);
+                    for (size_t u = 0; u < 2; ++u, y = -y)
+                        this->at(u).at(s).emplace_back(x,y); } } };
+    const unity_roots WP;
 public:
-    inline FFT_engine() : N(1<<size), WP(2,cmatrix(size)) {
-        number_t phi = 4.0*atan(1);
-        for (size_t s = 0, k = 1; s < size; ++s, k <<= 1, phi *= 0.5)
-            for (size_t j = 0; j < k; ++j) {
-                number_t theta = j*phi, x = cos(theta), y = sin(theta);
-                for (size_t u = 0; u < 2; ++u, y = -y)
-                    WP[u][s].emplace_back(x,y); } }
     inline void transform(cvector &F, const type t) const {
         for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
             if (j = swap_pos(j,k), i < j)

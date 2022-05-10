@@ -28,7 +28,7 @@ public:
                 number_t theta = j*phi, x = cos(theta), y = sin(theta);
                 for (size_t u = 0; u < 2; ++u, y = -y)
                     WP[u][s].emplace_back(x,y); } }
-    inline void transform(cvector& F, type t) const {
+    inline void transform(cvector& F, const type t) const {
         for (size_t m = N-1, k = N>>1, j = 0, i = 1; i < m; ++i)
             if (j = swap_pos(j,k), i < j)
                 swap(F[i],F[j]);

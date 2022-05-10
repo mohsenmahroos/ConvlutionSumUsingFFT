@@ -30,7 +30,7 @@ public:
                 swap(F[i],F[j]); }
         for (size_t u = 0, k = 1, w = 2; u < size; ++u, k = w, w <<= 1)
             for (size_t i = 0; i < N; i += w)
-	            for (size_t v = 0; v < k; ++v) {
+	        for (size_t v = 0; v < k; ++v) {
                     const auto l = i+v, r = l+k;
 		    const auto a = F[l], b = F[r]*WP[t][u][v];
 		    F[l] = a+b, F[r] = a-b; }

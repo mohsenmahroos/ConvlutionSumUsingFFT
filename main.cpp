@@ -4,7 +4,7 @@
 #include <numeric>
 using namespace std;
 
-// Accepted solution of FOUR ARRAYS problem in May 2022 Long-time Competitive Programming Contest I at CodeChef.com
+// Accepted solution of FOUR ARRAYS problem in May 2022 Long-time Competitive Programming Contest 1 at CodeChef.com
 
 int main() {
     using ull = unsigned long long;
